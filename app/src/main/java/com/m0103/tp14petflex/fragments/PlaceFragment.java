@@ -9,10 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.m0103.tp14petflex.adapters.PlaceRecyclerAdapter;
 import com.m0103.tp14petflex.databinding.FragmentPlaceBinding;
+import com.m0103.tp14petflex.databinding.RecyclerPlaceBinding;
 
 public class PlaceFragment extends Fragment {
     FragmentPlaceBinding binding;
+    PlaceRecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -24,5 +27,8 @@ public class PlaceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        adapter=new PlaceRecyclerAdapter(getActivity());
+        binding.recyclerViewPlace.setAdapter(adapter);
     }
 }

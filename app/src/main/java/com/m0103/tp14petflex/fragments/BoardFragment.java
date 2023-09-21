@@ -9,10 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.m0103.tp14petflex.adapters.BoardRecyclerAdapter;
 import com.m0103.tp14petflex.databinding.FragmentBoardBinding;
 
 public class BoardFragment extends Fragment {
     FragmentBoardBinding binding;
+    BoardRecyclerAdapter adapter;
 
 
     @Nullable
@@ -25,5 +27,7 @@ public class BoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        adapter= new BoardRecyclerAdapter(getActivity());
+        binding.recyclerViewBoard.setAdapter(adapter);
     }
 }

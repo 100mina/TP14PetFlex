@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.EntryActivity"
-    android:background="@drawable/bg_pattern">
+    android:background="@drawable/bg">
 
     <ImageView
         android:id="@+id/entry_iv"
@@ -16,19 +16,19 @@
         android:layout_marginBottom="100dp"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/entry_btn_login"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:text="로그인"
+        android:layout_centerInParent="true"
         android:background="@drawable/bg_btn"
-        android:textStyle="bold"
-        android:textSize="24sp"
         android:fontFamily="@font/cafedongdong"
         android:gravity="center"
-        android:layout_centerInParent="true"/>
+        android:text="로그인"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/entry_btn_join"
         android:layout_width="120dp"
         android:layout_height="50dp"
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/entry_btn_no_member"
         android:layout_width="240dp"
         android:layout_height="50dp"

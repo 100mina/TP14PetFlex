@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity"
-    android:background="@drawable/bg_pattern">
+    android:background="@drawable/bg">
     
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/login_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_back"/>
+        app:navigationIcon="@drawable/ic_back"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/bg1"
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="로그인"
         android:fontFamily="@font/cafedongdong"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/bg1"
         android:layout_marginBottom="10dp"
@@ -78,7 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tv_id"
         android:layout_below="@id/tv_id"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        app:endIconMode="password_toggle">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -88,12 +90,12 @@
             android:maxLength="20"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_btn_login"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:text="로그인"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:fontFamily="@font/cafedongdong"
         android:gravity="center"
         android:background="@drawable/bg_btn"

@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="80dp"
+    android:background="@color/subColor"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="place fragment"/>
+        android:orientation="horizontal"
+        android:gravity="center">
 
-</RelativeLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/place_btn_hospital"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="동물병원🐶"
+            android:fontFamily="@font/cafedongdong"
+            android:textSize="24sp"
+            android:background="#00ff0000"
+            android:layout_marginRight="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/place_btn_shop"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="용품점😻"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/place_btn_hospital"
+            android:fontFamily="@font/cafedongdong"
+            android:textSize="24sp"
+            android:background="#00ff0000"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_place"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"/>
+
+</LinearLayout>
