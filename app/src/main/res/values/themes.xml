@@ -7,6 +7,8 @@
 
     <style name="Theme.TP14PetFlex" parent="Base.Theme.TP14PetFlex">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+
     </style>
     
     <style name="ToolbarTheme">

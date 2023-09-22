@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.m0103.tp14petflex.R;
 import com.m0103.tp14petflex.databinding.ActivityLoginBinding;
@@ -19,6 +20,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         binding.loginToolbar.setNavigationOnClickListener(view -> finish());
 

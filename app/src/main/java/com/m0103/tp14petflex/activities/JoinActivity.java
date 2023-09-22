@@ -3,6 +3,7 @@ package com.m0103.tp14petflex.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -17,6 +18,8 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityJoinBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         binding.joinToolbar.setNavigationOnClickListener(view -> finish());
 
