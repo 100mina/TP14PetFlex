@@ -28,6 +28,7 @@ import com.m0103.tp14petflex.adapters.PlaceRecyclerAdapter;
 import com.m0103.tp14petflex.data.KakaoResponse;
 import com.m0103.tp14petflex.databinding.FragmentPlaceBinding;
 import com.m0103.tp14petflex.databinding.RecyclerPlaceBinding;
+import com.m0103.tp14petflex.network.RetrofitHelper;
 import com.m0103.tp14petflex.network.RetrofitService;
 
 import retrofit2.Call;
@@ -89,10 +90,7 @@ public class PlaceFragment extends Fragment {
     }//requestLocation method
 
     public void searchPlace(String query) {
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl("https://dapi.kakao.com");
-        builder.addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
+        Retrofit retrofit = RetrofitHelper.getRetrofitInstance("https://dapi.kakao.com");
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
 
         Call<KakaoResponse> call = retrofitService.searchPlaceKakao(query, ""+myLocation.getLongitude(),

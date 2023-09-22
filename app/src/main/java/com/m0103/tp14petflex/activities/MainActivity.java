@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationBarView;
+import com.m0103.tp14petflex.G;
 import com.m0103.tp14petflex.R;
 import com.m0103.tp14petflex.data.KakaoResponse;
 import com.m0103.tp14petflex.databinding.ActivityMainBinding;
@@ -60,8 +62,16 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
                 binding.mainToolbar.setTitle("이 달의 사랑둥이들");
             } else if (id==R.id.bnv_upload) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new UploadFragment()).commit();
-                binding.mainToolbar.setTitle("내새꾸 자랑하기");
+                //회원->UploadFragment , 비회원->LoginActivity
+                if(G.login==0){
+                    Intent intent=new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(this, "로그인이 필요해요", Toast.LENGTH_SHORT).show();
+                }else {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new UploadFragment()).commit();
+                    binding.mainToolbar.setTitle("내새꾸 자랑하기");
+                }
+
             } else if (id==R.id.bnv_board) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new BoardFragment()).commit();
                 binding.mainToolbar.setTitle("귀염둥이들 구경하기");
@@ -76,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         int permissionState = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         if (permissionState == PackageManager.PERMISSION_DENIED) { //퍼미션 거부상태 -> 퍼미션 요청
             resultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-        } //else requestLocation(); //퍼미션 허용 -> 위치 얻어오기
+        }
 
     }//onCreate method
 
