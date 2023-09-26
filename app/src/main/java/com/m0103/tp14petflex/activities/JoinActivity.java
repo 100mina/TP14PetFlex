@@ -55,7 +55,7 @@ public class JoinActivity extends AppCompatActivity {
 
         //중복확인 여부
         if(idCheck==0 || nicknameCheck==0){
-            Toast.makeText(this, "중복확인버튼을 클릭해주세요", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "중복확인 버튼을 클릭해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
 

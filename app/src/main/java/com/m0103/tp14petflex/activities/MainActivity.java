@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 if(G.login==0){
                     Intent intent=new Intent(this, LoginActivity.class);
                     startActivity(intent);
-                    Toast.makeText(this, "로그인이 필요해요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "로그인이 필요한 기능이에요", Toast.LENGTH_SHORT).show();
                 }else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new UploadFragment()).commit();
                     binding.mainToolbar.setTitle("내새꾸 자랑하기");
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }//onCreate method
 
     ActivityResultLauncher<String> resultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-        if(!result) Toast.makeText(this, "위치를 제공하지 않아 내 위치 기반 정보 기능을 사용할 수 없습니다", Toast.LENGTH_SHORT).show();
+        if(!result) Toast.makeText(this, "위치를 제공하지 않아 내 위치 기반 정보 기능을 사용할 수 없어요", Toast.LENGTH_SHORT).show();
     });
 
 

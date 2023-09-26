@@ -1,7 +1,9 @@
 package com.m0103.tp14petflex.network;
 
+import com.m0103.tp14petflex.data.BoardData;
 import com.m0103.tp14petflex.data.KakaoResponse;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -52,10 +54,13 @@ public interface RetrofitService {
 
     //게시물 서버 전송
     @Multipart
-    @POST("upload/upload.php")
+    @POST("board/upload.php")
     Call<String> upload(@PartMap Map<String, String> data,
                         @Part MultipartBody.Part part);
 
 
+    //게시물 데이터 가져오기
+    @GET("board/load.php")
+    Call<ArrayList<BoardData>> load();
 
 }
