@@ -77,7 +77,7 @@ public class JoinActivity extends AppCompatActivity {
 
                 if(s.equals("false")){
                     Toast.makeText(JoinActivity.this, "회원가입 중 오류가 발생했습니다\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                    return;
+
                 }else Toast.makeText(JoinActivity.this, "회원가입을 환영합니다!\n가입정보로 로그인해주세요", Toast.LENGTH_SHORT).show();
             }
             @Override

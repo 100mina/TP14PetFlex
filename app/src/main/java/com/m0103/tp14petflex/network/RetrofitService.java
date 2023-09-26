@@ -2,12 +2,18 @@ package com.m0103.tp14petflex.network;
 
 import com.m0103.tp14petflex.data.KakaoResponse;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -42,5 +48,14 @@ public interface RetrofitService {
     @POST("join/login.php")
     Call<String> login(@Field("id") String id,
                       @Field("password") String password);
+
+
+    //게시물 서버 전송
+    @Multipart
+    @POST("upload/upload.php")
+    Call<String> upload(@PartMap Map<String, String> data,
+                        @Part MultipartBody.Part part);
+
+
 
 }

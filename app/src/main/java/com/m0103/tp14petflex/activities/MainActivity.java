@@ -40,7 +40,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
+    public ActivityMainBinding binding;
 
 
     @Override
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
                 binding.mainToolbar.setTitle("이 달의 사랑둥이들");
             } else if (id==R.id.bnv_upload) {
+
                 //회원->UploadFragment , 비회원->LoginActivity
                 if(G.login==0){
                     Intent intent=new Intent(this, LoginActivity.class);
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }//onCreate method
 
     ActivityResultLauncher<String> resultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-        if(!result) Toast.makeText(this, "위치를 제공하지 않아 정보 기능을 사용할 수 없습니다", Toast.LENGTH_SHORT).show();
+        if(!result) Toast.makeText(this, "위치를 제공하지 않아 내 위치 기반 정보 기능을 사용할 수 없습니다", Toast.LENGTH_SHORT).show();
     });
 
 

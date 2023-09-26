@@ -33,8 +33,9 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         binding.loginToolbar.setNavigationOnClickListener(view -> finish());
-
         binding.loginBtnLogin.setOnClickListener(view -> clickBtnLogin());
+
+        binding.loginBtnGoJoin.setOnClickListener(view -> startActivity(new Intent(this, JoinActivity.class)));
     }
 
     void clickBtnLogin(){
@@ -49,18 +50,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 String s=response.body();
 
-                if(s.equals("false")){
+                if(s.equals("")){
                     Toast.makeText(LoginActivity.this, "아이디, 비밀번호가 다릅니다\n입력 정보를 확인해주세요", Toast.LENGTH_SHORT).show();
-                    return;
                 }else {
-                    Toast.makeText(LoginActivity.this, "로그인 되었습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, s+"님 로그인 되었습니다", Toast.LENGTH_SHORT).show();
 
                     Intent intent=new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                    //TODO:로그인한 계정의 닉네임 가져오기
+                    G.nickname=s;
                     G.login=1;
                 }
             }
