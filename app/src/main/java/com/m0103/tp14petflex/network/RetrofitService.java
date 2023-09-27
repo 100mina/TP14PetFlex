@@ -63,4 +63,25 @@ public interface RetrofitService {
     @GET("board/load.php")
     Call<ArrayList<BoardData>> load();
 
+
+    //좋아요 누름
+    @GET("board/favorite.php")
+    Call<String> favorite(@Query("board_no") String board_no,
+                          @Query("nickname") String nickname);
+
+
+    //좋아요 취소
+    @GET("board/favoriteCancel.php")
+    Call<String> favoriteCancel(@Query("board_no") String board_no,
+                                @Query("nickname") String nickname);
+
+
+    //좋아요 수 가져오기
+    @GET("board/countFavorite.php")
+    Call<String> countFavorite(@Query("board_no") String board_no);
+
+
+    //회원 별 좋아요 기억하기
+    @GET("board/setIsFav.php")
+    Call<String[]> setIsFav(@Query("nickname") String nickname);
 }
