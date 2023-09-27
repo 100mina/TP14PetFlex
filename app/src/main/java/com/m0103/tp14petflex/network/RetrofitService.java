@@ -84,4 +84,10 @@ public interface RetrofitService {
     //회원 별 좋아요 기억하기
     @GET("board/setIsFav.php")
     Call<String[]> setIsFav(@Query("nickname") String nickname);
+
+
+    //전 달 랭킹 불러오기
+    @GET("board/loadRank.php")
+    Call<ArrayList<BoardData>> loadRank(@Query("startDate") String startDate,
+                                        @Query("endDate") String endDate);
 }
