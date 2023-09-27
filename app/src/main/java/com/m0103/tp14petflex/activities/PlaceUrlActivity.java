@@ -19,7 +19,7 @@ public class PlaceUrlActivity extends AppCompatActivity {
         binding=ActivityPlaceUrlBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         Intent intent=getIntent();
 

@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         //실행 시 Home Fragment 연결
         getSupportFragmentManager().beginTransaction().add(R.id.container_fragment, new HomeFragment()).commit();
+        binding.mainToolbar.setNavigationOnClickListener(view -> createDialog(1));
 
         //프레그먼트 <--> 바텀네비게이션뷰 연결
         binding.mainBnv.setOnItemSelectedListener(item -> {
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             if(id==R.id.bnv_home){
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
                 binding.mainToolbar.setTitle("이 달의 사랑둥이들");
+                binding.mainToolbar.setNavigationOnClickListener(view -> createDialog(1));
             } else if (id==R.id.bnv_upload) {
 
                 //회원->UploadFragment , 비회원->LoginActivity
@@ -71,14 +74,18 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new UploadFragment()).commit();
                     binding.mainToolbar.setTitle("내새꾸 자랑하기");
+                    binding.mainToolbar.setNavigationOnClickListener(view -> createDialog(2));
                 }
 
             } else if (id==R.id.bnv_board) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new BoardFragment()).commit();
                 binding.mainToolbar.setTitle("귀염둥이들 구경하기");
+                binding.mainToolbar.setNavigationOnClickListener(view ->createDialog(3));
+
             } else if (id==R.id.bnv_place) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new PlaceFragment()).commit();
                 binding.mainToolbar.setTitle("우리 애기들을 위한 곳");
+                binding.mainToolbar.setNavigationOnClickListener(view -> createDialog(4));
             }
             return true;
         });
@@ -94,6 +101,42 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<String> resultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
         if(!result) Toast.makeText(this, "위치를 제공하지 않아 내 위치 기반 정보 기능을 사용할 수 없어요", Toast.LENGTH_SHORT).show();
     });
+
+    void createDialog(int i){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setView(R.layout.dialog_main_help);
+        AlertDialog dialog=builder.create();
+        dialog.show();
+
+        TextView tv=dialog.findViewById(R.id.tv_help);
+
+        switch (i){
+            case 1:
+                tv.setText(("이전 한달 간의 좋아요 개수\nTOP 10 목록이에요\n\n" +
+                        "자랑 탭을 클릭해서\n내 반려동물을 자랑할 수 있어요\n\nTOP 10을 노려보세요!"));
+                break;
+            case 2:
+                tv.setText("내 반려동물의 정보를 작성하고\n사진 첨부하기 버튼을 클릭해서\n사진을 설정해주세요\n\n" +
+                    "사진이 설정되었다면 버튼 옆에\n체크표시가 나타나요\n\n필수정보(이름, 사진)를 모두 입력 후" +
+                    "\n자랑시작 버튼을 클릭하면\n글 작성 완료!\n\n모든 게시물은 구경 탭에서\n확인할 수 있어요");
+                break;
+            case 3:
+                tv.setText("모든 게시물을 최신순으로 볼 수 있어요\n\n게시물을 클릭하면 간단한 정보와 사진을 크게 볼 수 있어요\n\n" +
+                        "오른쪽 하단에 총 좋아요 개수가 나와있고, 하트 버튼 클릭으로 좋아요/좋아요취소를 할 수 있어요" +
+                        "\n\n사랑스러운 아이가 있다면\n좋아요를 표시해주세요!");
+                break;
+            case 4:
+                tv.setText("내 위치 기반 동물병원, 반려동물 용품점 정보를 볼 수 있어요\n\n" +
+                        "더 자세히 보고싶은 정보가 있다면 클릭해서 상세페이지를 볼 수 있어요" +
+                        "\n\n만약 위치정보제공을 허용하지 않았다면 이 기능은 이용할 수 없어요\n\n-위치 정보 허용 방법-\n" +
+                        "휴대전화 설정 -> 애플리케이션 -> 펫플릭스 -> 위치 권한 허용");
+                break;
+
+        }
+
+
+
+    }
 
 
 
