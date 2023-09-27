@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="80dp"
     android:background="@color/subColor"
     android:orientation="vertical">
 
@@ -21,6 +20,7 @@
             android:fontFamily="@font/cafedongdong"
             android:textSize="24sp"
             android:background="#00ff0000"
+            android:textColor="@color/black"
             android:layout_marginRight="20dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -32,6 +32,7 @@
             android:layout_toRightOf="@id/place_btn_hospital"
             android:fontFamily="@font/cafedongdong"
             android:textSize="24sp"
+            android:textColor="@color/gray"
             android:background="#00ff0000"/>
 
     </LinearLayout>

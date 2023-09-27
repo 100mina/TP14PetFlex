@@ -42,14 +42,14 @@
         android:textSize="20sp"
         android:fontFamily="@font/cafedongdong"
         android:layout_below="@id/bg2"
-        android:layout_marginLeft="40dp"
+        android:layout_toLeftOf="@id/join_input_layout_nickname"
         android:layout_marginTop="65dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/join_input_layout_nickname"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_nickname"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/bg2"
         android:layout_marginTop="45dp"
         android:hint="최대 10글자">
@@ -71,14 +71,14 @@
         android:textSize="20sp"
         android:fontFamily="@font/cafedongdong"
         android:layout_below="@id/tv_nickname"
-        android:layout_marginLeft="40dp"
+        android:layout_alignLeft="@id/tv_nickname"
         android:layout_marginTop="40dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/join_input_layout_id"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_nickname"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/join_input_layout_nickname"
         android:hint="최대 20글자"
         android:layout_marginTop="10dp">
@@ -100,14 +100,14 @@
         android:textSize="20sp"
         android:fontFamily="@font/cafedongdong"
         android:layout_below="@id/tv_id"
-        android:layout_marginLeft="40dp"
+        android:layout_alignLeft="@id/tv_nickname"
         android:layout_marginTop="40dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/join_input_layout_pw"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_nickname"
+        android:layout_alignLeft="@id/join_input_layout_nickname"
         android:layout_below="@id/join_input_layout_id"
         android:hint="최대 20글자"
         android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
         android:id="@+id/join_input_layout_pw_check"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_nickname"
+        android:layout_alignLeft="@id/join_input_layout_nickname"
         android:layout_below="@id/join_input_layout_pw"
         android:hint="비밀번호 확인"
         android:layout_marginTop="10dp"

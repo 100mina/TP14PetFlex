@@ -56,7 +56,7 @@ public class BoardFragment extends Fragment {
                 ArrayList<BoardData> items=response.body();
                 for(int i=0; i<items.size(); i++){
                     BoardData item=items.get(i);
-                    boardDataArrayList.add(item);
+                    boardDataArrayList.add(0,item);
                 }
 
                 BoardRecyclerAdapter adapter= new BoardRecyclerAdapter(getActivity(), boardDataArrayList);

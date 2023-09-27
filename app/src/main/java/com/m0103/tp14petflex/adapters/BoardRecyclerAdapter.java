@@ -62,7 +62,7 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
             TextView date=dialog.findViewById(R.id.dialog_date);
             ImageView iv=dialog.findViewById(R.id.dialog_iv);
 
-            nickname.setText(boardData.nickname+"님의 자랑");
+            nickname.setText(boardData.nickname+"님");
             date.setText(boardData.date);
             petName.setText("ʚ "+boardData.pet_name+" ɞ");
             petBreed.setText(boardData.pet_breed);

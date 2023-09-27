@@ -41,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     public ActivityMainBinding binding;
-
+    public static int permissionState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         //실행 시 Home Fragment 연결
         getSupportFragmentManager().beginTransaction().add(R.id.container_fragment, new HomeFragment()).commit();
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //위치정보 퍼미션
-        int permissionState = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissionState = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         if (permissionState == PackageManager.PERMISSION_DENIED) { //퍼미션 거부상태 -> 퍼미션 요청
             resultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         }

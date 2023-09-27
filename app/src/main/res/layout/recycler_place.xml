@@ -51,6 +51,7 @@
             android:fontFamily="@font/cafedongdong"
             android:textColor="#656565"
             android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/place_tv_phone"
             android:textSize="16sp"/>
 
 

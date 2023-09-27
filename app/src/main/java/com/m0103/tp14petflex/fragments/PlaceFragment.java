@@ -1,7 +1,9 @@
 package com.m0103.tp14petflex.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -23,6 +25,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.m0103.tp14petflex.R;
 import com.m0103.tp14petflex.activities.MainActivity;
 import com.m0103.tp14petflex.adapters.PlaceRecyclerAdapter;
 import com.m0103.tp14petflex.data.KakaoResponse;
@@ -51,17 +54,19 @@ public class PlaceFragment extends Fragment {
         binding = FragmentPlaceBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ma= (MainActivity) getActivity();
         requestLocation();
 
         binding.placeBtnHospital.setOnClickListener(view1 -> {
+            binding.placeBtnHospital.setTextColor(Color.parseColor("#000000"));
+            binding.placeBtnShop.setTextColor(Color.parseColor("#A0A0A0"));
             searchPlace("동물병원");
         });
         binding.placeBtnShop.setOnClickListener(view1 -> {
+            binding.placeBtnHospital.setTextColor(Color.parseColor("#A0A0A0"));
+            binding.placeBtnShop.setTextColor(Color.parseColor("#000000"));
             searchPlace("반려동물용품");
         });
 
@@ -69,6 +74,7 @@ public class PlaceFragment extends Fragment {
     }//onViewCreated method
 
     public void requestLocation(){ //현재 위치 얻어오는 메소드
+        if (MainActivity.permissionState == PackageManager.PERMISSION_DENIED) return;
         FusedLocationProviderClient providerClient= LocationServices.getFusedLocationProviderClient(getActivity());
 
         LocationRequest request = new LocationRequest.Builder(5000).build();
@@ -90,6 +96,8 @@ public class PlaceFragment extends Fragment {
     }//requestLocation method
 
     public void searchPlace(String query) {
+        if (MainActivity.permissionState == PackageManager.PERMISSION_DENIED) return;
+
         Retrofit retrofit = RetrofitHelper.getRetrofitInstance("https://dapi.kakao.com");
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
 
