@@ -8,7 +8,8 @@ public class BoardData {
     public String nickname;
     public String date;
     public String img;
-    public String countFav;
+    public String count_fav;
     public String count_last_month;
+    public String count_last_week;
 
 }

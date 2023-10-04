@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(s.equals("")){
                     Toast.makeText(LoginActivity.this, "아이디, 비밀번호가 다릅니다\n입력 정보를 확인해주세요", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(LoginActivity.this, s+"님 로그인 되었습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, s+"님 환영해요!", Toast.LENGTH_SHORT).show();
 
                     Intent intent=new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

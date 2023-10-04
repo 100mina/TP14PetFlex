@@ -86,8 +86,20 @@ public interface RetrofitService {
     Call<String[]> setIsFav(@Query("nickname") String nickname);
 
 
-    //전 달 랭킹 불러오기
-    @GET("home/loadRank.php")
+    //전 달 순위 불러오기
+    @GET("board/loadRank.php")
     Call<ArrayList<BoardData>> loadRank(@Query("startDate") String startDate,
                                         @Query("endDate") String endDate);
+
+    //총 좋아요 갯수 순서대로 데이터 불러오기
+    @GET("board/loadTotalFav.php")
+    Call<ArrayList<BoardData>> loadTotalFav();
+
+
+    //일주일 전의 순위 불러오기
+    @GET("board/loadLastWeek.php")
+    Call<ArrayList<BoardData>> loadLastWeek();
+
+
+
 }

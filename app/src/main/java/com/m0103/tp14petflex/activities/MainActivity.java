@@ -43,7 +43,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    public ActivityMainBinding binding;
+    public static ActivityMainBinding binding;
     public static int permissionState;
 
     @Override
@@ -116,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
         switch (i){
             case 1:
                 tv.setText(("이전 한달 간의 좋아요 갯수\nTOP 10 목록이에요\n\n" +
+                        "스크롤을 마지막까지 내리면\n총 좋아요 갯수 TOP 10이나\n" +
+                        "오늘 날짜를 기준으로 일주일 전\nTOP 10 순위도 볼 수 있어요!\n\n" +
+                        "(원래 목록으로 -> 홈탭 클릭!)\n\n" +
                         "자랑 탭을 클릭해서\n내 반려동물을 자랑할 수 있어요\n\nTOP 10을 노려보세요!"));
                 break;
             case 2:
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 tv.setText("모든 게시물을 최신순으로 볼 수 있어요\n\n게시물을 클릭하면 간단한 정보와\n사진을 크게 볼 수 있어요\n\n" +
-                        "오른쪽 하단에 총 좋아요 개수가 나와있고,\n하트 버튼 클릭으로 좋아요/좋아요취소를\n할 수 있어요" +
+                        "오른쪽 하단은 총 좋아요 개수를 나타내고,\n하트 버튼 클릭으로 좋아요/좋아요취소\n기능을 표시할 수 있어요" +
                         "\n\n사랑스러운 아이가 있다면\n좋아요를 표시해주세요!" +
                         "\n\n(좋아요 기능은 회원만\n사용할 수 있어요)");
                 break;

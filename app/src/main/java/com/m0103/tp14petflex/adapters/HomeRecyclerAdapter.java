@@ -20,11 +20,12 @@ import java.util.ArrayList;
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     ArrayList<BoardData> boardDataArrayList;
-    int lastMonth= LocalDate.now().minusMonths(1).getMonthValue();
+    String type;
 
-    public HomeRecyclerAdapter(Context context, ArrayList<BoardData> boardDataArrayList) {
+    public HomeRecyclerAdapter(Context context, ArrayList<BoardData> boardDataArrayList, String type) {
         this.context = context;
         this.boardDataArrayList = boardDataArrayList;
+        this.type = type;
     }
 
     int i=0;
@@ -43,19 +44,28 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(boardDataArrayList.size()<10 && position>=boardDataArrayList.size()) return;
         BoardData boardData=boardDataArrayList.get(position);
         String url="http://petflex.dothome.co.kr/board/"+boardData.img;
 
         if(i==0){
             VH_first vhFirst= (VH_first) holder;
             vhFirst.firstBinding.homeTv1Name.setText("< "+boardData.pet_name+" >");
-            vhFirst.firstBinding.homeTv1Fav.setText(lastMonth+"월에 받은 좋아요 "+boardData.count_last_month+"개");
+
+            if(type.equals("lastMonth")) vhFirst.firstBinding.homeTv1Fav.setText(boardData.count_last_month+"개");
+            else if(type.equals("totalFav")) vhFirst.firstBinding.homeTv1Fav.setText(boardData.count_fav+"개");
+            else if(type.equals("lastWeek")) vhFirst.firstBinding.homeTv1Fav.setText(boardData.count_last_week+"개");
+
             Glide.with(context).load(url).into(vhFirst.firstBinding.homeIv1);
             i=1;
         }else {
             VH vh= (VH) holder;
             vh.binding.homeTv2Name.setText(boardData.pet_name);
-            vh.binding.homeTv2Fav.setText("좋아요 "+boardData.count_last_month+"개");
+
+            if(type.equals("lastMonth")) vh.binding.homeTv2Fav.setText(boardData.count_last_month+"개");
+            else if(type.equals("totalFav")) vh.binding.homeTv2Fav.setText(boardData.count_fav+"개");
+            else if(type.equals("lastWeek")) vh.binding.homeTv2Fav.setText(boardData.count_last_week+"개");
+
             Glide.with(context).load(url).into(vh.binding.homeIv2);
         }
 

@@ -8,22 +8,19 @@
     app:cardCornerRadius="4dp"
     android:backgroundTint="#FFFBF2">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/bg1"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:src="@drawable/ic_tiara2"
-            android:layout_centerHorizontal="true"/>
+            android:src="@drawable/ic_tiara2"/>
         <LinearLayout
-            android:id="@+id/bg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_below="@id/bg1">
+            android:gravity="center_horizontal">
 
             <ImageView
                 android:layout_width="90dp"
@@ -48,31 +45,44 @@
 
         </LinearLayout>
 
-
         <TextView
             android:id="@+id/home_tv1_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cafedongdong"
             android:text="1등 이름"
-            android:layout_below="@id/bg2"
-            android:textSize="28sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/home_tv1_fav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/cafedongdong"
-            android:text="좋아요"
-            android:layout_below="@id/home_tv1_name"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"/>
+            android:textSize="28sp"/>
 
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_favorite"
+                android:layout_marginRight="4dp"/>
+
+            <TextView
+                android:id="@+id/home_tv1_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cafedongdong"
+                android:text="10개"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

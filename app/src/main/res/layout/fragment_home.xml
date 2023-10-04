@@ -11,5 +11,36 @@
         android:layout_height="match_parent"
         android:padding="10dp"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_btn_total_fav"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="역대 귀염둥이 순위 보기"
+        android:fontFamily="@font/cafedongdong"
+        android:textSize="16sp"
+        android:background="@drawable/bg_btn"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_btn_last_week"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="일주일간의 순위 보기"
+        android:fontFamily="@font/cafedongdong"
+        android:textSize="16sp"
+        android:background="@drawable/bg_btn"
+        android:visibility="gone"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:layout_above="@id/home_btn_total_fav"
+        android:layout_alignLeft="@id/home_btn_total_fav"
+        android:layout_marginBottom="20dp"/>
+
 
 </RelativeLayout>
