@@ -53,7 +53,7 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
         String url="http://petflex.dothome.co.kr/board/"+boardData.img;
         Glide.with(context).load(url).into(holder.binding.boardIv);
 
-        holder.itemView.setOnClickListener(view -> createDialog(boardData.nickname, boardData.date,boardData.pet_name,
+        holder.itemView.setOnClickListener(view -> createDialog(context, boardData.nickname, boardData.date,boardData.pet_name,
                 boardData.pet_age,boardData.pet_breed,url));
 
         countFav(holder, boardData.board_no);
@@ -61,7 +61,7 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
         setIsFav(holder.itemView,holder, boardData.board_no);
 
         holder.binding.boardBtnFav.setOnClickListener(view -> {
-            //TODO:좋아요 테스트 끝나면 if문 걸기
+            // TODO:좋아요 테스트 끝나면 if문 걸기
 //            if(G.login==0) {
 //                Toast.makeText(context, "로그인이 필요한 기능이에요", Toast.LENGTH_SHORT).show();
 //                return;
@@ -165,7 +165,7 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
         }
     }
 
-    void createDialog(String nickname1,String date1, String pet_name, String pet_age, String pet_breed, String url){
+    public static void createDialog(Context context,String nickname1,String date1, String pet_name, String pet_age, String pet_breed, String url){
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         builder.setView(R.layout.dialog_board);
         AlertDialog dialog=builder.create();

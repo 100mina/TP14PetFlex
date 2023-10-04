@@ -34,6 +34,8 @@ import com.m0103.tp14petflex.fragments.PlaceFragment;
 import com.m0103.tp14petflex.fragments.UploadFragment;
 import com.m0103.tp14petflex.network.RetrofitService;
 
+import java.time.LocalDate;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //실행 시 Home Fragment 연결
         getSupportFragmentManager().beginTransaction().add(R.id.container_fragment, new HomeFragment()).commit();
         binding.mainToolbar.setNavigationOnClickListener(view -> createDialog(1));
+        binding.mainToolbar.setTitle(G.lastMonth+"월의 사랑둥이들");
 
         //프레그먼트 <--> 바텀네비게이션뷰 연결
         binding.mainBnv.setOnItemSelectedListener(item -> {
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(id==R.id.bnv_home){
                 getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
-                binding.mainToolbar.setTitle("이 달의 사랑둥이들");
+                binding.mainToolbar.setTitle(G.lastMonth+"월의 사랑둥이들");
                 binding.mainToolbar.setNavigationOnClickListener(view -> createDialog(1));
             } else if (id==R.id.bnv_upload) {
 
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (i){
             case 1:
-                tv.setText(("이전 한달 간의 좋아요 개수\nTOP 10 목록이에요\n\n" +
+                tv.setText(("이전 한달 간의 좋아요 갯수\nTOP 10 목록이에요\n\n" +
                         "자랑 탭을 클릭해서\n내 반려동물을 자랑할 수 있어요\n\nTOP 10을 노려보세요!"));
                 break;
             case 2:
@@ -121,22 +124,18 @@ public class MainActivity extends AppCompatActivity {
                     "\n자랑시작 버튼을 클릭하면\n글 작성 완료!\n\n모든 게시물은 구경 탭에서\n확인할 수 있어요");
                 break;
             case 3:
-                tv.setText("모든 게시물을 최신순으로 볼 수 있어요\n\n게시물을 클릭하면 간단한 정보와 사진을 크게 볼 수 있어요\n\n" +
-                        "오른쪽 하단에 총 좋아요 개수가 나와있고, 하트 버튼 클릭으로 좋아요/좋아요취소를 할 수 있어요" +
+                tv.setText("모든 게시물을 최신순으로 볼 수 있어요\n\n게시물을 클릭하면 간단한 정보와\n사진을 크게 볼 수 있어요\n\n" +
+                        "오른쪽 하단에 총 좋아요 개수가 나와있고,\n하트 버튼 클릭으로 좋아요/좋아요취소를\n할 수 있어요" +
                         "\n\n사랑스러운 아이가 있다면\n좋아요를 표시해주세요!" +
                         "\n\n(좋아요 기능은 회원만\n사용할 수 있어요)");
                 break;
             case 4:
-                tv.setText("내 위치 기반 동물병원, 반려동물 용품점 정보를 볼 수 있어요\n\n" +
-                        "더 자세히 보고싶은 정보가 있다면 클릭해서 상세페이지를 볼 수 있어요" +
-                        "\n\n만약 위치정보제공을 허용하지 않았다면 이 기능은 이용할 수 없어요\n\n-위치 정보 허용 방법-\n" +
+                tv.setText("내 위치 기반 동물병원,\n반려동물 용품점 정보를 볼 수 있어요\n\n" +
+                        "더 자세히 보고싶은 정보가 있다면\n클릭해서 상세페이지를 볼 수 있어요" +
+                        "\n\n만약 위치정보제공을 허용하지 않았다면\n이 기능은 이용할 수 없어요\n\n--위치 정보 허용 방법--\n" +
                         "휴대전화 설정 -> 애플리케이션 -> 펫플릭스 -> 위치 권한 허용");
                 break;
-
         }
-
-
-
     }
 
 

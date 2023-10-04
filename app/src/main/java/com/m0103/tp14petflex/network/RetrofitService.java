@@ -87,7 +87,7 @@ public interface RetrofitService {
 
 
     //전 달 랭킹 불러오기
-    @GET("board/loadRank.php")
+    @GET("home/loadRank.php")
     Call<ArrayList<BoardData>> loadRank(@Query("startDate") String startDate,
                                         @Query("endDate") String endDate);
 }
