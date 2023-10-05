@@ -184,7 +184,6 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
 
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            //((Activity)view.getContext()).getMenuInflater().inflate(R.menu.board_context_menu,contextMenu);
             MenuItem delete= contextMenu.add("삭제");
             delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
