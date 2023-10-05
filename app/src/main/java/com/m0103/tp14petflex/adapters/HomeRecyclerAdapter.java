@@ -28,12 +28,25 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.type = type;
     }
 
-    int i=0;
+    final int first=1;
+    final int other=2;
+    String s=null;
+
+    @Override
+    public int getItemViewType(int position){
+        if (boardDataArrayList.size()<10 && position>=boardDataArrayList.size()) return other;
+
+        else if(0==boardDataArrayList.indexOf(boardDataArrayList.get(position))) {
+            s=boardDataArrayList.get(position).board_no;
+            return first;
+        }
+        else return other;
+    }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(i==0){
+        if(viewType==first){
             View itemview=LayoutInflater.from(context).inflate(R.layout.recycler_home_first,parent,false);
             return new VH_first(itemview);
         }else {
@@ -48,7 +61,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         BoardData boardData=boardDataArrayList.get(position);
         String url="http://petflex.dothome.co.kr/board/"+boardData.img;
 
-        if(i==0){
+        if(s.equals(boardData.board_no)){
             VH_first vhFirst= (VH_first) holder;
             vhFirst.firstBinding.homeTv1Name.setText("< "+boardData.pet_name+" >");
 
@@ -57,7 +70,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             else if(type.equals("lastWeek")) vhFirst.firstBinding.homeTv1Fav.setText(boardData.count_last_week+"개");
 
             Glide.with(context).load(url).into(vhFirst.firstBinding.homeIv1);
-            i=1;
         }else {
             VH vh= (VH) holder;
             vh.binding.homeTv2Name.setText(boardData.pet_name);
