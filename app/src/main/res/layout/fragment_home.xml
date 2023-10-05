@@ -31,7 +31,7 @@
         android:id="@+id/home_btn_last_week"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:text="일주일간의 순위 보기"
+        android:text="최근 급상승 순위 보기"
         android:fontFamily="@font/cafedongdong"
         android:textSize="14sp"
         android:background="@drawable/bg_btn"

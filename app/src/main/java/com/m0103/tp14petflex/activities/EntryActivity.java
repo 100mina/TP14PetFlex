@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.m0103.tp14petflex.BackKeyHandler;
 import com.m0103.tp14petflex.R;
 import com.m0103.tp14petflex.databinding.ActivityEntryBinding;
 
@@ -27,5 +28,11 @@ public class EntryActivity extends AppCompatActivity {
             finish();
         });
 
+    }
+
+    BackKeyHandler backKeyHandler=new BackKeyHandler(this);
+    @Override
+    public void onBackPressed() {
+        backKeyHandler.onBackPressed();
     }
 }

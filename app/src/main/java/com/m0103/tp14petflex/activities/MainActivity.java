@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,6 +25,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationBarView;
+import com.m0103.tp14petflex.BackKeyHandler;
 import com.m0103.tp14petflex.G;
 import com.m0103.tp14petflex.R;
 import com.m0103.tp14petflex.data.KakaoResponse;
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         //실행 시 Home Fragment 연결
         getSupportFragmentManager().beginTransaction().add(R.id.container_fragment, new HomeFragment()).commit();
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         switch (i){
             case 1:
                 tv.setText(("이전 한달 간의 좋아요 갯수\nTOP 10 목록이에요\n\n" +
-                        "스크롤을 마지막까지 내리면\n총 좋아요 갯수 TOP 10이나\n" +
+                        "스크롤을 마지막까지 내리면\n총 좋아요 TOP 10이나\n" +
                         "오늘 날짜를 기준으로 일주일 동안의\nTOP 10 순위도 볼 수 있어요!\n\n" +
                         "(원래 목록으로 -> 홈탭 클릭!)\n\n" +
                         "자랑 탭을 클릭해서\n내 반려동물을 자랑할 수 있어요\n\nTOP 10을 노려보세요!"));
@@ -141,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    BackKeyHandler backKeyHandler=new BackKeyHandler(this);
+    @Override
+    public void onBackPressed() {
+        backKeyHandler.onBackPressed();
+    }
 
 }//MainActivity

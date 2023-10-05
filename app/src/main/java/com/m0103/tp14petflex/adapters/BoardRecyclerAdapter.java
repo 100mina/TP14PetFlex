@@ -1,11 +1,16 @@
 package com.m0103.tp14petflex.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.m0103.tp14petflex.G;
 import com.m0103.tp14petflex.R;
+import com.m0103.tp14petflex.activities.MainActivity;
 import com.m0103.tp14petflex.data.BoardData;
 import com.m0103.tp14petflex.databinding.RecyclerBoardBinding;
 import com.m0103.tp14petflex.network.RetrofitHelper;
@@ -29,12 +35,18 @@ import retrofit2.Retrofit;
 public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdapter.VH> {
     Context context;
     ArrayList<BoardData> boardDataArrayList;
-    int isFav=0;
-
+    String type="nothing";
+    public static String itemViewBoardNo=null;
 
     public BoardRecyclerAdapter(Context context, ArrayList<BoardData> boardDataArrayList) {
         this.context = context;
         this.boardDataArrayList = boardDataArrayList;
+    }
+
+    public BoardRecyclerAdapter(Context context, ArrayList<BoardData> boardDataArrayList, String type) {
+        this.context = context;
+        this.boardDataArrayList = boardDataArrayList;
+        this.type = type;
     }
 
     @NonNull
@@ -61,13 +73,13 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
         setIsFav(holder.itemView,holder, boardData.board_no);
 
         holder.binding.boardBtnFav.setOnClickListener(view -> {
-            // TODO:좋아요 테스트 끝나면 if문 걸기
-//            if(G.login==0) {
-//                Toast.makeText(context, "로그인이 필요한 기능이에요", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
+            if(G.login==0) {
+                Toast.makeText(context, "로그인이 필요한 기능이에요", Toast.LENGTH_SHORT).show();
+                return;
+            }
             clickBtnFav(holder.itemView, (Integer)holder.itemView.getTag(),holder, boardData.board_no);
         });
+
 
     }
 
@@ -85,7 +97,8 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
                     if(s[i].equals(board_no)) {
                         holder.binding.boardBtnFav.setBackgroundResource(R.drawable.ic_favorite);
                         itemView.setTag(1);
-                    }
+                        break;
+                    }else holder.binding.boardBtnFav.setBackgroundResource(R.drawable.ic_favorite_border);
                 }
             }
             @Override
@@ -129,7 +142,7 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
                 }
             });
             i++;
-        } else if(i==1){ //짝수 : 좋아요 취소
+        } else if(i==1){ //좋아요 취소
             Retrofit retrofit= RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
             RetrofitService retrofitService=retrofit.create(RetrofitService.class);
             Call<String> call=retrofitService.favoriteCancel(board_no, G.nickname);
@@ -154,16 +167,56 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
         return boardDataArrayList.size();
     }
 
-    class VH extends RecyclerView.ViewHolder{
-        RecyclerBoardBinding binding;
 
+    class VH extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+        RecyclerBoardBinding binding;
 
         public VH(@NonNull View itemView) {
             super(itemView);
             binding=RecyclerBoardBinding.bind(itemView);
             itemView.setTag(0);
+
+            if(type.equals("myPost")){
+                itemView.setOnCreateContextMenuListener(this);
+            }
+
         }
-    }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            //((Activity)view.getContext()).getMenuInflater().inflate(R.menu.board_context_menu,contextMenu);
+            MenuItem delete= contextMenu.add("삭제");
+            delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                    String itemBoardNo=boardDataArrayList.get(getAdapterPosition()).board_no;
+                    boardDataArrayList.remove(getAdapterPosition());
+
+                    Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
+                    RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+                    Call<String> call1 = retrofitService.deleteMyPost(itemBoardNo);
+                    call1.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            String s=response.body();
+
+                            if(s.equals("true")) Toast.makeText(context, "게시물이 삭제되었어요", Toast.LENGTH_SHORT).show();
+                            else Toast.makeText(context, "오류가 발생했어요 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+
+                            notifyItemRemoved(getAdapterPosition());
+                            notifyItemRangeChanged(getAdapterPosition(),boardDataArrayList.size());
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                        }
+                    });
+                    return true;
+                }
+            });
+        }
+    }//VH
+
 
     public static void createDialog(Context context,String nickname1,String date1, String pet_name, String pet_age, String pet_breed, String url){
         AlertDialog.Builder builder=new AlertDialog.Builder(context);

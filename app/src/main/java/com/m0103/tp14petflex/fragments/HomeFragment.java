@@ -33,7 +33,8 @@ import retrofit2.Retrofit;
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     ArrayList<BoardData> boardDataArrayList =new ArrayList<>();
-    //MainActivity ma= (MainActivity) getActivity();
+    Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
+    RetrofitService retrofitService = retrofit.create(RetrofitService.class);
 
     @Nullable
     @Override
@@ -46,26 +47,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
-        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        loadRank();
+        binding.homeBtnTotalFav.setOnClickListener(view1 -> loadTotalFav());
+        binding.homeBtnLastWeek.setOnClickListener(view1 -> loadLastWeek());
 
-        //기본으로 보여줄 데이터 가져오기 (전달의 순위)
-        Call<ArrayList<BoardData>> call = retrofitService.loadRank(G.start.toString(), G.end.toString());
-        call.enqueue(new Callback<ArrayList<BoardData>>() {
-            @Override
-            public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
-                ArrayList<BoardData> items = response.body();
-                for (int i = 0; i < items.size(); i++) {
-                    BoardData item = items.get(i);
-                    boardDataArrayList.add(item);
-                }
-                recyclerViewSetAdapter("lastMonth");
-            }
 
-            @Override
-            public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
-            }
-        });
 
         //스크롤에 따라 버튼 보이기
         binding.recyclerViewHome.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -85,57 +71,86 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.homeBtnTotalFav.setOnClickListener(view1 -> {
-            //총 좋아요 순위
-            Call<ArrayList<BoardData>> call1 = retrofitService.loadTotalFav();
-            call1.enqueue(new Callback<ArrayList<BoardData>>() {
-                @Override
-                public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
-                    boardDataArrayList.clear();
 
-                    ArrayList<BoardData> items = response.body();
-                    for (int i = 0; i < 10; i++) {
-                        BoardData item = items.get(i);
-                        boardDataArrayList.add(item);
-                    }
-                    recyclerViewSetAdapter("totalFav");
-                    MainActivity.binding.mainToolbar.setTitle("역대 최고 사랑둥이들");
-                    binding.homeBtnTotalFav.setVisibility(View.GONE);
-                    binding.homeBtnLastWeek.setVisibility(View.GONE);
 
+    }//onViewCreated
+
+    void loadLastWeek(){ //지난 일주일간의 순위
+        Call<ArrayList<BoardData>> call1 = retrofitService.loadLastWeek();
+        call1.enqueue(new Callback<ArrayList<BoardData>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
+                boardDataArrayList.clear();
+
+                ArrayList<BoardData> items = response.body();
+                for (int i = 0; i < items.size(); i++) {
+                    BoardData item = items.get(i);
+                    boardDataArrayList.add(item);
                 }
-                @Override
-                public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
-                }
-            });
-
+                recyclerViewSetAdapter("lastWeek");
+                MainActivity.binding.mainToolbar.setTitle("최근 급상승 사랑둥이들");
+                binding.homeBtnTotalFav.setVisibility(View.GONE);
+                binding.homeBtnLastWeek.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
+            }
         });
+    }
 
-        binding.homeBtnLastWeek.setOnClickListener(view1 -> {
-            //지난 일주일간의 순위
-            Call<ArrayList<BoardData>> call1 = retrofitService.loadLastWeek();
-            call1.enqueue(new Callback<ArrayList<BoardData>>() {
-                @Override
-                public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
-                    boardDataArrayList.clear();
 
-                    ArrayList<BoardData> items = response.body();
+    void loadTotalFav(){ //총 좋아요 순위
+        Call<ArrayList<BoardData>> call1 = retrofitService.loadTotalFav();
+        call1.enqueue(new Callback<ArrayList<BoardData>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
+                boardDataArrayList.clear();
+
+                ArrayList<BoardData> items = response.body();
+                if(items.size()<10){
                     for (int i = 0; i < items.size(); i++) {
                         BoardData item = items.get(i);
                         boardDataArrayList.add(item);
                     }
-                    recyclerViewSetAdapter("lastWeek");
-                    MainActivity.binding.mainToolbar.setTitle("일주일간의 최고 사랑둥이들");
-                    binding.homeBtnTotalFav.setVisibility(View.GONE);
-                    binding.homeBtnLastWeek.setVisibility(View.GONE);
+                }else {
+                    for (int i = 0; i < 10; i++) {
+                        BoardData item = items.get(i);
+                        boardDataArrayList.add(item);
+                    }
                 }
-                @Override
-                public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
-                }
-            });
-        });
 
+                recyclerViewSetAdapter("totalFav");
+                MainActivity.binding.mainToolbar.setTitle("역대 최고 사랑둥이들");
+                binding.homeBtnTotalFav.setVisibility(View.GONE);
+                binding.homeBtnLastWeek.setVisibility(View.GONE);
+
+            }
+            @Override
+            public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
+            }
+        });
     }
+
+
+    void loadRank(){ //기본으로 보여줄 데이터 가져오기 (전달의 순위)
+        Call<ArrayList<BoardData>> call = retrofitService.loadRank(G.start.toString(), G.end.toString());
+        call.enqueue(new Callback<ArrayList<BoardData>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
+                ArrayList<BoardData> items = response.body();
+                for (int i = 0; i < items.size(); i++) {
+                    BoardData item = items.get(i);
+                    boardDataArrayList.add(item);
+                }
+                recyclerViewSetAdapter("lastMonth");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
+            }
+        });
+    }
+
 
     void recyclerViewSetAdapter(String type){
 
@@ -152,7 +167,6 @@ public class HomeFragment extends Fragment {
         binding.recyclerViewHome.setLayoutManager(layoutManager);
         binding.recyclerViewHome.setAdapter(adapter);
     }
-
 
 
 

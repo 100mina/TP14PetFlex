@@ -101,5 +101,15 @@ public interface RetrofitService {
     Call<ArrayList<BoardData>> loadLastWeek();
 
 
+    //내 게시물 불러오기
+    @GET("board/loadMyPost.php")
+    Call<ArrayList<BoardData>> loadMyPost(@Query("nickname") String nickname);
+
+
+    //내 게시물 삭제하기
+    @GET("board/deleteMyPost.php")
+    Call<String> deleteMyPost(@Query("board_no") String board_no);
+
+
 
 }
