@@ -26,7 +26,7 @@ public class BackKeyHandler {
 
         if(System.currentTimeMillis()<= backKeyPressedTime+2000){
             G.login=0;
-            G.nickname=null;
+            G.nickname="null";
             activity.finish();
             toast.cancel();
         }

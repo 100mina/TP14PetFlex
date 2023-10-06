@@ -43,6 +43,19 @@
             android:textSize="18sp"
             android:layout_margin="6dp"/>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_btn_report"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="신고"
+            android:fontFamily="@font/cafedongdong"
+            android:background="@drawable/bg_btn"
+            android:visibility="gone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="18sp"
+            android:layout_margin="6dp"/>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

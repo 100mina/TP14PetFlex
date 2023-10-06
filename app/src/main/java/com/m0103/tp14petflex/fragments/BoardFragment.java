@@ -51,6 +51,33 @@ public class BoardFragment extends Fragment {
         binding.boardBtnCountFav.setOnClickListener(view1 -> loadTotalFav());
         binding.boardBtnMyPost.setOnClickListener(view1 -> loadMyPost());
 
+        if(G.nickname.equals("개발자")) binding.boardBtnReport.setVisibility(View.VISIBLE);
+        binding.boardBtnReport.setOnClickListener(view1 -> loadReport());
+
+    }
+
+    public void loadReport(){ //신고내역 불러오기
+        Retrofit retrofit= RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
+        RetrofitService retrofitService=retrofit.create(RetrofitService.class);
+        Call<ArrayList<BoardData>> call=retrofitService.loadReport();
+        call.enqueue(new Callback<ArrayList<BoardData>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BoardData>> call, Response<ArrayList<BoardData>> response) {
+                boardDataArrayList.clear();
+
+                ArrayList<BoardData> items=response.body();
+                for(int i=0; i<items.size(); i++){
+                    BoardData item=items.get(i);
+                    boardDataArrayList.add(item);
+                }
+
+                adapter= new BoardRecyclerAdapter(getActivity(), boardDataArrayList,"report");
+                binding.recyclerViewBoard.setAdapter(adapter);
+            }
+            @Override
+            public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
+            }
+        });
     }
 
     public void loadData(){ //서버에서 데이터 불러오기
@@ -70,12 +97,9 @@ public class BoardFragment extends Fragment {
 
                 adapter= new BoardRecyclerAdapter(getActivity(), boardDataArrayList);
                 binding.recyclerViewBoard.setAdapter(adapter);
-
             }
-
             @Override
             public void onFailure(Call<ArrayList<BoardData>> call, Throwable t) {
-
             }
         });
     }//loadData

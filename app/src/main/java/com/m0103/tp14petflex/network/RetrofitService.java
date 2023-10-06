@@ -111,5 +111,19 @@ public interface RetrofitService {
     Call<String> deleteMyPost(@Query("board_no") String board_no);
 
 
+    //게시물 신고 기능
+    @GET("board/report.php")
+    Call<String> report(@Query("board_no") String board_no);
+
+
+    //개발자 전용 신고 내역 불러오기
+    @GET("board/loadReport.php")
+    Call<ArrayList<BoardData>> loadReport();
+
+
+    //개발자 전용 신고 초기화
+    @GET("board/reportReset.php")
+    Call<String> reportReset(@Query("board_no") String board_no);
+
 
 }

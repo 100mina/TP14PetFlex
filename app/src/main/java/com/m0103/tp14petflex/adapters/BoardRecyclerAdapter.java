@@ -36,7 +36,6 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
     Context context;
     ArrayList<BoardData> boardDataArrayList;
     String type="nothing";
-    public static String itemViewBoardNo=null;
 
     public BoardRecyclerAdapter(Context context, ArrayList<BoardData> boardDataArrayList) {
         this.context = context;
@@ -176,45 +175,114 @@ public class BoardRecyclerAdapter extends RecyclerView.Adapter<BoardRecyclerAdap
             binding=RecyclerBoardBinding.bind(itemView);
             itemView.setTag(0);
 
-            if(type.equals("myPost")){
-                itemView.setOnCreateContextMenuListener(this);
-            }
+            itemView.setOnCreateContextMenuListener(this);
 
         }
 
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            MenuItem delete= contextMenu.add("삭제");
-            delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                    String itemBoardNo=boardDataArrayList.get(getAdapterPosition()).board_no;
-                    boardDataArrayList.remove(getAdapterPosition());
+            if(type.equals("myPost") || G.nickname.equals("개발자")){ //삭제 버튼 : 내 게시물보기 탭, 개발자전용
+                MenuItem delete= contextMenu.add("삭제");
 
-                    Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
-                    RetrofitService retrofitService = retrofit.create(RetrofitService.class);
-                    Call<String> call1 = retrofitService.deleteMyPost(itemBoardNo);
-                    call1.enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            String s=response.body();
+                //delete 클릭 이벤트
+                delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                        String itemBoardNo=boardDataArrayList.get(getAdapterPosition()).board_no;
+                        boardDataArrayList.remove(getAdapterPosition());
 
-                            if(s.equals("true")) Toast.makeText(context, "게시물이 삭제되었어요", Toast.LENGTH_SHORT).show();
-                            else Toast.makeText(context, "오류가 발생했어요 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                        Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
+                        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+                        Call<String> call1 = retrofitService.deleteMyPost(itemBoardNo);
+                        call1.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                String s=response.body();
 
-                            notifyItemRemoved(getAdapterPosition());
-                            notifyItemRangeChanged(getAdapterPosition(),boardDataArrayList.size());
-                        }
+                                if(s.equals("true")) Toast.makeText(context, "게시물이 삭제되었어요", Toast.LENGTH_SHORT).show();
+                                else Toast.makeText(context, "오류가 발생했어요 다시 시도해주세요", Toast.LENGTH_SHORT).show();
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                        }
-                    });
-                    return true;
-                }
-            });
-        }
+                                notifyItemRemoved(getAdapterPosition());
+                                notifyItemRangeChanged(getAdapterPosition(),boardDataArrayList.size());
+                            }
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                            }
+                        });
+                        return true;
+                    }
+                });
+            }//delete if문
+
+            if(type.equals("nothing")){ //신고 버튼 : 최신순, 좋아요순 구경 탭
+                MenuItem report= contextMenu.add("신고");
+
+                //신고 버튼 클릭 이벤트
+                report.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                        String itemBoardNo=boardDataArrayList.get(getAdapterPosition()).board_no;
+
+                        Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
+                        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+                        Call<String> call1 = retrofitService.report(itemBoardNo);
+                        call1.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                String s=response.body();
+
+                                if(s.equals("true")) Toast.makeText(context, "신고 완료!\n빠른 검토 후 조치하겠습니다", Toast.LENGTH_SHORT).show();
+                                else Toast.makeText(context, "오류가 발생했어요 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                            }
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                            }
+                        });
+                        return true;
+                    }
+                });
+            }//report if문
+
+            if(type.equals("report")){ //신고 초기화 버튼 : 개발자 전용
+                MenuItem reportReset= contextMenu.add("신고 초기화");
+
+                //신고 초기화 버튼 클릭 이벤트
+                reportReset.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                        String itemBoardNo=boardDataArrayList.get(getAdapterPosition()).board_no;
+                        boardDataArrayList.remove(getAdapterPosition());
+
+                        Retrofit retrofit = RetrofitHelper.getRetrofitInstance("http://petflex.dothome.co.kr/");
+                        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+                        Call<String> call1 = retrofitService.reportReset(itemBoardNo);
+                        call1.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                String s=response.body();
+
+                                if(s.equals("true")) Toast.makeText(context, "초기화 완료", Toast.LENGTH_SHORT).show();
+                                else Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+
+                                notifyItemRemoved(getAdapterPosition());
+                                notifyItemRangeChanged(getAdapterPosition(),boardDataArrayList.size());
+                            }
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                            }
+                        });
+
+                        return true;
+                    }
+                });
+
+            }
+
+        }//onCreateContextMenu
+
     }//VH
+
+
 
 
     public static void createDialog(Context context,String nickname1,String date1, String pet_name, String pet_age, String pet_breed, String url){
