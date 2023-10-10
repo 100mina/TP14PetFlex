@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/subColor"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/dialog_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:fontFamily="@font/cafedongdong"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"/>
+
+    <ImageView
+        android:id="@+id/dialog_iv"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:src="@color/mainColor"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/dialog_pet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ʚ 이름 ɞ"
+            android:textColor="@color/black"
+            android:fontFamily="@font/cafedongdong"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/dialog_pet_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/cafedongdong"
+            android:text="0살"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialog_pet_breed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="품종"
+        android:fontFamily="@font/cafedongdong"
+        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/dialog_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="작성날짜"
+        android:fontFamily="@font/cafedongdong"
+        android:textColor="#858585"
+        android:gravity="right"
+        android:layout_marginTop="10dp"/>
+
+
+
+</LinearLayout>
