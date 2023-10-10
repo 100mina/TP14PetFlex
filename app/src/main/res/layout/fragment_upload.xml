@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingBottom="80dp"
+    android:paddingTop="30dp"
     android:background="@color/subColor">
 
     <TextView
@@ -18,19 +18,20 @@
         android:layout_height="wrap_content"
         android:text="반려동물의 정보를 입력해주세요"
         android:fontFamily="@font/cafedongdong"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"/>
+        android:layout_above="@id/bg2"/>
     <TextView
         android:id="@+id/bg2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이름과 사진은 필수입력 입니다!"
         android:fontFamily="@font/cafedongdong"
-        android:textSize="24sp"
-        android:layout_below="@id/bg1"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/upload_input_layout_name"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/upload_tv_name"
@@ -39,42 +40,38 @@
         android:text="이름"
         android:textSize="24sp"
         android:fontFamily="@font/cafedongdong"
-        android:layout_below="@id/bg1"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="70dp"
-        android:layout_alignLeft="@id/bg1"/>
+        android:layout_alignTop="@id/upload_input_layout_name"
+        android:layout_toLeftOf="@id/upload_input_layout_name"
+        android:layout_margin="18dp"/>
 
     <TextView
         android:id="@+id/upload_tv_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="나이"
-        android:textSize="24sp"
+        android:layout_alignTop="@id/upload_input_layout_age"
+        android:layout_toLeftOf="@id/upload_input_layout_age"
         android:fontFamily="@font/cafedongdong"
-        android:layout_below="@id/upload_tv_name"
-        android:layout_marginTop="40dp"
-        android:layout_alignLeft="@id/upload_tv_name"/>
+        android:text="나이"
+        android:layout_margin="18dp"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/upload_tv_breed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="품종"
-        android:textSize="24sp"
+        android:layout_alignTop="@id/upload_input_layout_breed"
+        android:layout_margin="18dp"
+        android:layout_toLeftOf="@id/upload_input_layout_breed"
         android:fontFamily="@font/cafedongdong"
-        android:layout_below="@id/upload_tv_age"
-        android:layout_marginTop="40dp"
-        android:layout_alignLeft="@id/upload_tv_name"/>
+        android:text="품종"
+        android:textSize="24sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/upload_input_layout_name"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/upload_tv_name"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/bg1"
-        android:layout_marginLeft="30dp"
-        android:textColorHint="@color/black">
+        android:layout_above="@id/upload_input_layout_age"
+        android:layout_alignLeft="@id/upload_input_layout_age">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,10 +86,9 @@
         android:id="@+id/upload_input_layout_age"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/upload_tv_name"
-        android:layout_below="@id/upload_input_layout_name"
+        android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp">
+        android:layout_marginBottom="10dp">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,10 +103,8 @@
         android:id="@+id/upload_input_layout_breed"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/upload_tv_name"
         android:layout_below="@id/upload_input_layout_age"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp">
+        android:layout_alignLeft="@id/upload_input_layout_age">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,13 +115,12 @@
             android:gravity="center"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/upload_btn_image"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="사진 첨부하기"
         android:background="@drawable/bg_btn"
-        android:padding="16dp"
         android:fontFamily="@font/cafedongdong"
         android:textSize="20sp"
         android:textColor="@color/black"
@@ -136,27 +129,29 @@
         android:layout_marginTop="20dp"/>
 
     <ImageView
+        android:id="@+id/upload_img_check"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_check"
         android:layout_toRightOf="@id/upload_btn_image"
         android:layout_alignTop="@id/upload_btn_image"
-        android:visibility="visible"/>
+        android:visibility="invisible"
+        android:layout_marginTop="5dp"/>
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/upload_btn_upload"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:text="자랑 시작!"
-        android:background="@drawable/bg_btn"
-        android:padding="16dp"
-        android:fontFamily="@font/cafedongdong"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="35dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_btn"
+        android:fontFamily="@font/cafedongdong"
+        android:text="자랑 시작!"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
 
 

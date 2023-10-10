@@ -2,11 +2,13 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TP14PetFlex" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/mainColor</item>
     </style>
 
     <style name="Theme.TP14PetFlex" parent="Base.Theme.TP14PetFlex">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+
     </style>
     
     <style name="ToolbarTheme">

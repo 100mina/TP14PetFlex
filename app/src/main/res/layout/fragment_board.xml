@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/subColor"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/board_linear"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="board fragment"/>
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
-</RelativeLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_btn_latest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최신순"
+            android:fontFamily="@font/cafedongdong"
+            android:background="@drawable/bg_btn"
+            android:textSize="18sp"
+            android:layout_margin="6dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_btn_count_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="좋아요순"
+            android:fontFamily="@font/cafedongdong"
+            android:background="@drawable/bg_btn"
+            android:textSize="18sp"
+            android:layout_margin="6dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_btn_my_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 게시물"
+            android:fontFamily="@font/cafedongdong"
+            android:background="@drawable/bg_btn"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="18sp"
+            android:layout_margin="6dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/board_btn_report"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="신고"
+            android:fontFamily="@font/cafedongdong"
+            android:background="@drawable/bg_btn"
+            android:visibility="gone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="18sp"
+            android:layout_margin="6dp"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:padding="10dp"/>
+
+</LinearLayout>

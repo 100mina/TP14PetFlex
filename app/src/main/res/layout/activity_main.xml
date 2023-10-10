@@ -20,17 +20,13 @@
             android:theme="@style/ToolbarTheme"
             app:title="이 달의 귀염둥이들"
             app:titleCentered="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginTop="20dp"/>
 
         <FrameLayout
             android:id="@+id/container_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-
-    </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bnv"
@@ -38,13 +34,13 @@
             android:layout_height="wrap_content"
             app:menu="@menu/main_bnv_menu"
             app:labelVisibilityMode="unlabeled"
-            android:layout_gravity="bottom"
             app:itemIconSize="50dp"
             app:itemIconTint="@drawable/menu_selector_color"
             app:itemTextColor="@drawable/menu_selector_color"
             style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-            app:backgroundTint="#00FFFFFF"
-            android:layout_marginBottom="10dp"/>
+            app:backgroundTint="#00FFFFFF"/>
+
+    </LinearLayout>
 
 
 
